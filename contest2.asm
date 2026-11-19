@@ -97,6 +97,7 @@ mov magic, 8
 mov phealth, 90
 mov mp, 80
 mov buff, 1
+mov class, 3
 jmp turn1
 
 
@@ -268,10 +269,10 @@ call Crlf
 call CRLF
 
 cmp class, 1
-jz enemy155
+je enemy155
 
 cmp class, 3
-jz enemy165
+je enemy165
 
 jmp enemy175
 
@@ -281,6 +282,7 @@ add eax, dstrength
 call WriteInt
 call Crlf
 call CRLF
+jmp enemy175
 
 enemy155:
 mov eax, 2
@@ -307,6 +309,16 @@ call RandomRange
 cmp eax, 1
 je enemy175
 add debuffstacks, 1
+cmp debuffstacks, 5
+jg enemy170
+
+mov eax, dstrength
+mov edx, 0        
+mov ebx, 10       
+div ebx     
+sub dstrength, eax
+sub dstrength, 1
+
 mov edx,OFFSET prompt24
 mov eax, green + (black * 16)
 call SetTextColor
@@ -314,6 +326,14 @@ call WriteString
 call Crlf
 call Crlf
 jmp enemy175
+
+enemy170:
+mov edx,OFFSET prompt6
+mov eax, green + (black * 16)
+call SetTextColor
+call WriteString
+call Crlf
+call Crlf
 
 
 enemy175:
