@@ -567,11 +567,21 @@ add mp, eax
 mov eax, mhp
 cmp phealth, eax
 jg transition122
-
+jmp transition123
 transition122:
-mov eax, 
+mov eax, mhp
+mov phealth, eax
+
 
 transition123:
+mov eax, mmp
+cmp mp, eax
+jg transition124
+jmp transition125
+
+transition124:
+mov eax, mhp
+mov phealth, eax
 
 transition125:
 je shop1
