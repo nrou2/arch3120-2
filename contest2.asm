@@ -13,6 +13,7 @@ mp DWORD 100
 fullheal DWORD 0
 class DWORD 1
 defend dword 0
+debuffstacks dword 0
 
 ;move unlocks
 poison dword 0
@@ -26,7 +27,7 @@ prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
 prompt5 BYTE "Move failed, you can't afford it!",0
-prompt6 BYTE "Enemy strength can't go any lower than 5!",0
+prompt6 BYTE "Enemy strength can't go any lower!",0
 prompt7 BYTE "Enemy current strength: ",0
 prompt8 BYTE "You already used that!",0
 prompt9 BYTE "Enemy attacked for ",0
@@ -301,7 +302,19 @@ cmp dhealth, 0
 jle win
 jmp enemy175
 enemy165:
+mov eax, 2
+call RandomRange
+cmp eax, 1
+je enemy175
+add debuffstacks, 1
+mov edx,OFFSET prompt24
+mov eax, green + (black * 16)
+call SetTextColor
+call WriteString
+call Crlf
+call Crlf
 jmp enemy175
+
 
 enemy175:
 
