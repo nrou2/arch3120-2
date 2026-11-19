@@ -65,6 +65,7 @@ prompt31 BYTE "5 - Full Restore Item.",0
 prompt32 BYTE "6 - +20 max HP, +2 magic, instantly restore HP and MP to full.",0
 prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.",0
 prompt34 BYTE "You poison the enemy.", 0
+prompt35 BYTE "The enemy took 5% of its max health as poison damage", 0
 .code
 main PROC
 
@@ -385,6 +386,19 @@ jmp enemy
 
 
 enemy:
+mov eax, purple + (black * 16)
+call SetTextColor
+call Randomize
+call Crlf
+call Crlf
+mov edx,OFFSET prompt35
+cmp epoison, 0
+je enemy2
+call WriteString
+
+
+
+enemy2:
 mov eax, red + (black * 16)
 call SetTextColor
 call Randomize
