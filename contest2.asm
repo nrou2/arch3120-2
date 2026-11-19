@@ -229,6 +229,33 @@ shock:
 strbuff:
 
 enemy:
+mov eax, red + (black * 16)
+call SetTextColor
+call Randomize
+call Crlf
+call Crlf
+mov edx,OFFSET prompt9
+call WriteString
+
+mov eax, 10
+call RandomRange
+mov ebx, phealth
+sub ebx, dstrength
+sub ebx, eax
+mov phealth, ebx
+
+
+
+add eax, dstrength
+call WriteInt
+call Crlf
+call CRLF
+
+mov eax, white + (black * 16)
+call SetTextColor
+
+cmp phealth,0
+jle lose
 jmp turn1
 
 
