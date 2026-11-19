@@ -98,7 +98,7 @@ jmp turn
 
 
 
-turn:
+turn1:
 mov edx,OFFSET prompt1
 call WriteString
 call Crlf
@@ -181,6 +181,25 @@ call ReadInt
 ;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
 mov input, eax
 
+dec input
+jz attack
+dec input
+jz concentrate
+dec input
+jz shock
+dec input
+jz strbuff
+
+attack:
+
+concentrate:
+
+shock:
+
+strbuff:
+
+enemy:
+jmp turn1
 
 done:
 call ReadInt
