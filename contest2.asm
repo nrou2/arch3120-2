@@ -78,7 +78,7 @@ mov phealth, 125
 mov mp, 50
 mov class, 1
 mov fullheal,1 
-jmp turn
+jmp turn1
 mage:
 mov strength, 5
 mov magic, 11
@@ -86,14 +86,14 @@ mov phealth, 100
 mov mp, 120
 mov class, 2
 mov shockspell, 1
-jmp turn
+jmp turn1
 dancer:
 mov strength, 7
 mov magic, 8
 mov phealth, 90
 mov mp, 80
 mov buff, 1
-jmp turn
+jmp turn1
 
 
 
@@ -180,7 +180,8 @@ call SetTextColor
 call ReadInt
 ;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
 mov input, eax
-
+cmp input, 4
+jz attack
 dec input
 jz attack
 dec input
@@ -191,6 +192,35 @@ dec input
 jz strbuff
 
 attack:
+mov eax, green + (black * 16)
+call SetTextColor
+call Randomize
+call Crlf
+mov edx,OFFSET prompt10
+call WriteString
+
+mov eax, 7
+call RandomRange
+sub eax, 3
+;Random variation of +- 3 in player basic attack, consistency can be gained through using spell attack instead
+
+mov ebx, dhealth
+sub ebx, strength
+sub ebx, eax
+mov dhealth, ebx
+
+
+
+add eax, strength
+call WriteInt
+call Crlf
+
+mov eax, white + (black * 16)
+call SetTextColor
+
+cmp dhealth, 0
+jle win
+jmp enemy
 
 concentrate:
 
@@ -200,6 +230,22 @@ strbuff:
 
 enemy:
 jmp turn1
+
+
+win:
+mov eax, green + (black * 16)
+call SetTextColor
+mov edx,OFFSET vic
+call WriteString
+jmp done
+
+lose:
+mov eax, red + (black * 16)
+call SetTextColor
+mov edx,OFFSET loss
+call WriteString
+jmp done
+
 
 done:
 call ReadInt
