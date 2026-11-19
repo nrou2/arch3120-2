@@ -11,6 +11,7 @@ dstrength dword 10
 dmagic dword 10
 mp DWORD 100 
 fullheal DWORD 1
+class DWORD 1
 prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Strengthen Self (costs 10, strength+10) 3 - Heal Self (costs 50, heal up to 50) 4 - Weaken Enemy (costs 15, reduce strength) 5 - Full Heal Item (free, only one) 6 - Icicle Spell (Costs 20)",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
@@ -30,12 +31,28 @@ prompt16 BYTE "Your current strength: ", 0
 prompt17 BYTE "Your current magic: ", 0
 prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
 prompt19 BYTE "Enemy current magic: ", 0
+prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic. Comes with full heal item. May parry on defend.", 0
+prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend.", 0
+prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend.", 0
 .code
 main PROC
 
 
 mov eax, white + (black * 16)
 call SetTextColor
+mov edx,OFFSET prompt18
+call WriteString
+call Crlf
+mov edx,OFFSET prompt20
+call WriteString
+call Crlf
+mov edx,OFFSET prompt21
+call WriteString
+call Crlf
+mov edx,OFFSET prompt22
+call WriteString
+call Crlf
+
 
 jmp turn
 
