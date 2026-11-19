@@ -14,7 +14,7 @@ fullheal DWORD 0
 class DWORD 1
 defend dword 0
 debuffstacks dword 0
-wave dword 0
+wave dword 1
 mmp dword 100
 mhp dword 100
 bstrength dword 10
@@ -473,7 +473,10 @@ jmp turn1
 
 
 win:
-jmp shop1
+add wave, 1
+cmp wave, 2
+je shop1
+
 
 lose:
 mov eax, red + (black * 16)
@@ -509,7 +512,9 @@ mov edx, OFFSET prompt33
 call WriteString
 call Crlf
 sub choices, 1
-jmp transition12
+call ReadInt
+mov input, eax
+
 chosepoison:
 mov poison,1
 jmp transition12
@@ -538,6 +543,17 @@ jmp transition12
 transition12:
 cmp choices, 1
 je shop1
+mov eax, mhp
+mov phealth, eax
+mov eax, mmp
+mov mp, eax
+mov eax, bstrength
+mov strength, eax
+mov eax, bmagic
+mov magic, eax
+mov dhealth, 150
+mov strength, 15
+jmp turn1
 
 
 done:
