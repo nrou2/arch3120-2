@@ -20,6 +20,8 @@ mhp dword 100
 bstrength dword 10
 bmagic dword 10
 choices dword 2
+epoison dword 0
+ppoison dword 0
 
 ;move unlocks
 poison dword 0
@@ -62,6 +64,7 @@ prompt30 BYTE "4 - Ice Spell: 2 x Magic + 10 damage, 40 mana.",0
 prompt31 BYTE "5 - Full Restore Item.",0
 prompt32 BYTE "6 - +20 max HP, +2 magic, instantly restore HP and MP to full.",0
 prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.",0
+prompt34 BYTE "You poison the enemy.", 0
 .code
 main PROC
 
@@ -294,6 +297,21 @@ mov eax, yellow + (black * 16)
 mov edx,OFFSET prompt25
 call WriteString
 jmp turn1
+
+poisoning:
+cmp poison, 0
+je shockfail
+cmp mp, 40
+jb shockfail
+mov eax, purple + (black * 16)
+call SetTextColor
+call Crlf
+mov edx,OFFSET prompt34
+call WriteString
+call Crlf
+epoison = 1
+
+jmp enemy
 
 strbuff:
 cmp buff, 0
@@ -594,6 +612,8 @@ mov eax, bmagic
 mov magic, eax
 mov dhealth, 150
 mov strength, 15
+mov epoison, 0
+mov ppoison, 0
 jmp turn1
 
 
