@@ -53,6 +53,23 @@ mov edx,OFFSET prompt22
 call WriteString
 call Crlf
 
+call ReadInt
+;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
+mov input, eax
+dec input
+jz knight
+dec input
+jz mage
+dec input
+jz dancer
+
+knight: 
+mov strength, 13
+mov magic, 5
+mov phealth, 125
+mov mana, 50
+
+
 
 jmp turn
 
