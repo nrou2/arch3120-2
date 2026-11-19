@@ -17,6 +17,8 @@ debuffstacks dword 0
 wave dword 0
 mmp dword 100
 mhp dword 100
+bstrength dword 10
+bmagic dword 10
 
 ;move unlocks
 poison dword 0
@@ -26,7 +28,7 @@ heal dword 0
 ice dword 0
 regen dword 0
 ;text strings
-prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana)",0
+prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana), 5 - Full restore (if owned)",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
@@ -89,6 +91,8 @@ mov class, 1
 mov fullheal,1 
 mov mmp, 50
 mov mhp, 125
+mov bstrength, 13
+mov bmagic, 5
 jmp turn1
 mage:
 mov strength, 5
@@ -99,6 +103,8 @@ mov class, 2
 mov shockspell, 1
 mov mmp, 120
 mov mhp, 100
+mov bstrength, 5
+mov bmagic, 11
 jmp turn1
 dancer:
 mov strength, 7
@@ -109,6 +115,8 @@ mov buff, 1
 mov class, 3
 mov mmp, 80
 mov mhp, 90
+mov bstrength, 7
+mov bmagic, 8
 jmp turn1
 
 
@@ -207,6 +215,8 @@ dec input
 jz shock
 dec input
 jz strbuff
+dec input
+jz item
 
 attack:
 mov eax, green + (black * 16)
@@ -247,6 +257,8 @@ jmp enemy
 concentraterestore:
 add mp, 15
 jmp enemy
+
+
 
 shock:
 cmp class, 2
