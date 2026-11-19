@@ -29,6 +29,7 @@ prompt15 BYTE "You raised your own strength!",0
 prompt16 BYTE "Your current strength: ", 0
 prompt17 BYTE "Your current magic: ", 0
 prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
+prompt19 BYTE "Enemy current magic: ", 0
 .code
 main PROC
 
@@ -106,7 +107,18 @@ call WriteInt
 call Crlf
 mov eax, white + (black * 16)
 call SetTextColor
-
+mov edx,OFFSET prompt19
+mov eax, white + (black * 16)
+call SetTextColor
+call WriteString
+call Crlf
+mov eax, cyan + (black * 16)
+call SetTextColor
+mov eax, dmagic
+call WriteInt
+call Crlf
+mov eax, white + (black * 16)
+call SetTextColor
 call ReadInt
 ;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
 mov input, eax
