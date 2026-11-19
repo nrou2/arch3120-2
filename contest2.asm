@@ -10,8 +10,16 @@ dhealth dword 100
 dstrength dword 10
 dmagic dword 10
 mp DWORD 100 
-fullheal DWORD 1
+fullheal DWORD 0
 class DWORD 1
+
+;move unlocks
+poison dword 0
+shockspell dword 0
+buff dword 0
+heal dword 0
+ice dword 0
+regen dword 0
 prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Strengthen Self (costs 10, strength+10) 3 - Heal Self (costs 50, heal up to 50) 4 - Weaken Enemy (costs 15, reduce strength) 5 - Full Heal Item (free, only one) 6 - Icicle Spell (Costs 20)",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
@@ -50,7 +58,7 @@ mov edx,OFFSET prompt21
 call WriteString
 call Crlf
 mov edx,OFFSET prompt22
-call WriteString
+call WriteString	
 call Crlf
 
 call ReadInt
@@ -69,6 +77,7 @@ mov magic, 5
 mov phealth, 125
 mov mp, 50
 mov class, 1
+mov fullheal,1 
 jmp turn
 mage:
 mov strength, 5
@@ -76,12 +85,14 @@ mov magic, 11
 mov phealth, 100
 mov mp, 120
 mov class, 2
+mov shockspell, 1
 jmp turn
 dancer:
 mov strength, 7
 mov magic, 8
 mov phealth, 90
 mov mp, 80
+mov buff, 1
 jmp turn
 
 
