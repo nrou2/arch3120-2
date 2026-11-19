@@ -15,6 +15,8 @@ class DWORD 1
 defend dword 0
 debuffstacks dword 0
 wave dword 0
+mmp dword 100
+mhp dword 100
 
 ;move unlocks
 poison dword 0
@@ -85,6 +87,8 @@ mov phealth, 125
 mov mp, 50
 mov class, 1
 mov fullheal,1 
+mov mmp, 50
+mov mhp, 125
 jmp turn1
 mage:
 mov strength, 5
@@ -93,6 +97,8 @@ mov phealth, 100
 mov mp, 120
 mov class, 2
 mov shockspell, 1
+mov mmp, 120
+mov mhp, 100
 jmp turn1
 dancer:
 mov strength, 7
@@ -101,6 +107,8 @@ mov phealth, 90
 mov mp, 80
 mov buff, 1
 mov class, 3
+mov mmp, 80
+mov mhp, 90
 jmp turn1
 
 
@@ -267,6 +275,42 @@ call WriteString
 jmp turn1
 
 strbuff:
+
+item:
+cmp fullheal, 0
+JNZ itemsuccess
+mov eax, red + (black * 16)
+call SetTextColor
+
+
+call Crlf
+mov edx,OFFSET prompt8
+call WriteString
+
+call Crlf
+mov eax, white + (black * 16)
+call SetTextColor
+
+jmp enemy
+
+
+itemsuccess:
+call CRLF
+mov eax, green + (black * 16)
+call SetTextColor
+mov fullheal,0
+mov eax, mhp
+mov phealth, eax
+mov eax,mmp
+mov mp, eax
+mov edx,OFFSET prompt13
+call WriteString
+call CRLF
+mov eax, white + (black * 16)
+call SetTextColor
+jmp enemy
+
+
 
 enemy:
 mov eax, red + (black * 16)
