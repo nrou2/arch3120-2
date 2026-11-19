@@ -53,6 +53,14 @@ prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength 
 prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
 prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
 prompt25 BYTE "You either lack the mana, or the move itself. Restarting turn.", 0
+prompt26 BYTE "Pick two. You have automatically restored 50% HP and MP along the way.",0
+prompt27 BYTE "1 - Poison: 5% of enemy HP per turn, 40 mana.",0
+prompt28 BYTE "2 - Strength Buff: +2 strength, 10 mana.",0
+prompt29 BYTE "3 - Heal: +Magic x 5 HP, 30 mana. Can overheal.",0
+prompt30 BYTE "4 - Ice Spell: 2 x Magic + 10 damage, 40 mana.",0
+prompt31 BYTE "5 - Full Restore Item.",0
+prompt32 BYTE "6 - +20 max HP, +2 magic, instantly restore HP and MP to full.",0
+prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.",0
 .code
 main PROC
 
@@ -477,6 +485,17 @@ mov edx,OFFSET loss
 call WriteString
 jmp done
 
+
+shop1:
+mov edx, OFFSET prompt26
+call WriteString
+call Crlf
+mov edx, OFFSET prompt27
+call WriteString
+call Crlf
+mov edx, OFFSET prompt28
+call WriteString
+call Crlf
 
 done:
 call ReadInt
