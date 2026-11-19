@@ -19,6 +19,7 @@ mmp dword 100
 mhp dword 100
 bstrength dword 10
 bmagic dword 10
+choices dword 2
 
 ;move unlocks
 poison dword 0
@@ -507,23 +508,36 @@ call Crlf
 mov edx, OFFSET prompt33
 call WriteString
 call Crlf
-
+sub choices, 1
+jmp transition12
 chosepoison:
 mov poison,1
+jmp transition12
 chosebuff:
 mov buff, 1
+jmp transition12
 choseheal:
 mov heal, 1
+jmp transition12
 choseice:
 mov ice, 1
+jmp transition12
 choseitem:
 add fullheal,1
+jmp transition12
 chosehp:
 add mhp,20
 add bmagic, 2
+jmp transition12
 chosemp:
 add mmp, 20
 add bstrength, 2
+jmp transition12
+
+
+transition12:
+cmp choices, 1
+je shop1
 
 
 done:
