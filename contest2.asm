@@ -557,6 +557,23 @@ jmp transition12
 
 transition12:
 cmp choices, 1
+mov eax, mhp
+shr eax, 1
+add phealth, eax
+mov eax, mmp
+shr eax, 1
+add mp, eax
+
+mov eax, mhp
+cmp phealth, eax
+jg transition122
+
+transition122:
+mov eax, 
+
+transition123:
+
+transition125:
 je shop1
 
 mov eax, bstrength
