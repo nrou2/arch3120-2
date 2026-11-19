@@ -241,12 +241,15 @@ add mp, 15
 jmp enemy
 
 shock:
-cmp class, 3
+cmp class, 2
 jne shockfail
 cmp mp, 20
-jbe shockfail
+jb shockfail
 
-cmp mp, 20
+mov edx,OFFSET prompt11
+mov eax, green + (black * 16)
+call SetTextColor
+call WriteString
 jle enemy
 sub mp, 20
 mov eax, 27
