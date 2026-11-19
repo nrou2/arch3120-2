@@ -14,6 +14,7 @@ fullheal DWORD 0
 class DWORD 1
 defend dword 0
 debuffstacks dword 0
+wave dword 0
 
 ;move unlocks
 poison dword 0
@@ -22,7 +23,8 @@ buff dword 0
 heal dword 0
 ice dword 0
 regen dword 0
-prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (mag +-50%, 20 mana) 4 - Strengthen Self (if owned) (10 mana)",0
+;text strings
+prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana)",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
@@ -32,7 +34,7 @@ prompt7 BYTE "Enemy current strength: ",0
 prompt8 BYTE "You already used that!",0
 prompt9 BYTE "Enemy attacked for ",0
 prompt10 BYTE "You used a basic attack dealing ",0
-prompt11 BYTE "You used a spell dealing ",0
+prompt11 BYTE "You shocked the enemy, dealing ",0
 prompt12 BYTE "You healed 50 damage.",0
 prompt13 BYTE "You used your full heal up.",0
 prompt14 BYTE "You reduced the enemy strength.",0
@@ -46,6 +48,7 @@ prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspe
 prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend.", 0
 prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
 prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
+prompt25 BYTE "You either lack the mana, or the move itself. Restarting turn.", 0
 .code
 main PROC
 
@@ -236,7 +239,29 @@ jmp enemy
 concentraterestore:
 add mp, 15
 jmp enemy
+
 shock:
+cmp class, 3
+jne shockfail
+cmp mp, 20
+jbe shockfail
+
+cmp mp, 20
+jle enemy
+sub mp, 20
+mov eax, 27
+call RandomRange
+sub eax, 13
+add eax, magic
+sub dhealth, eax
+call WriteInt
+jmp enemy
+
+shockfail:
+mov eax, yellow + (black * 16)
+mov edx,OFFSET prompt25
+call WriteString
+jmp turn1
 
 strbuff:
 
@@ -329,7 +354,7 @@ jmp enemy175
 
 enemy170:
 mov edx,OFFSET prompt6
-mov eax, green + (black * 16)
+mov eax, yellow + (black * 16)
 call SetTextColor
 call WriteString
 call Crlf
