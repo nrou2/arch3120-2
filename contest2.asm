@@ -67,21 +67,21 @@ knight:
 mov strength, 13
 mov magic, 5
 mov phealth, 125
-mov mana, 50
+mov mp, 50
 mov class, 1
 jmp turn
 mage:
 mov strength, 5
 mov magic, 11
 mov phealth, 100
-mov mana, 120
+mov mp, 120
 mov class, 2
 jmp turn
 dancer:
 mov strength, 7
 mov magic, 8
 mov phealth, 90
-mov mana, 80
+mov mp, 80
 jmp turn
 
 
