@@ -3,10 +3,12 @@ INCLUDE Irvine32.inc
 loss BYTE "You Lose",0
 vic BYTE "You Win",0
 phealth DWORD 100
-dhealth DWORD 335
-strength DWORD 25
-dstrength DWORD 15
+strength DWORD 10
+magic DWORD 10
 input DWORD 1
+dhealth dword 100
+dstrength dword 10
+dmagic dword 10
 mp DWORD 100 
 fullheal DWORD 1
 prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Strengthen Self (costs 10, strength+10) 3 - Heal Self (costs 50, heal up to 50) 4 - Weaken Enemy (costs 15, reduce strength) 5 - Full Heal Item (free, only one) 6 - Icicle Spell (Costs 20)",0
@@ -25,6 +27,8 @@ prompt13 BYTE "You used your full heal up.",0
 prompt14 BYTE "You reduced the enemy strength.",0
 prompt15 BYTE "You raised your own strength!",0
 prompt16 BYTE "Your current strength: ", 0
+prompt17 BYTE "Your current magic: ", 0
+prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
 .code
 main PROC
 
@@ -86,6 +90,18 @@ call Crlf
 mov eax, yellow + (black * 16)
 call SetTextColor
 mov eax, dstrength
+call WriteInt
+call Crlf
+mov eax, white + (black * 16)
+call SetTextColor
+mov edx,OFFSET prompt17
+mov eax, white + (black * 16)
+call SetTextColor
+call WriteString
+call Crlf
+mov eax, cyan + (black * 16)
+call SetTextColor
+mov eax, magic
 call WriteInt
 call Crlf
 mov eax, white + (black * 16)
