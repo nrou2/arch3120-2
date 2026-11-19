@@ -472,11 +472,7 @@ jmp turn1
 
 
 win:
-mov eax, green + (black * 16)
-call SetTextColor
-mov edx,OFFSET vic
-call WriteString
-jmp done
+jmp shop1
 
 lose:
 mov eax, red + (black * 16)
@@ -496,6 +492,39 @@ call Crlf
 mov edx, OFFSET prompt28
 call WriteString
 call Crlf
+mov edx, OFFSET prompt29
+call WriteString
+call Crlf
+mov edx, OFFSET prompt30
+call WriteString
+call Crlf
+mov edx, OFFSET prompt31
+call WriteString
+call Crlf
+mov edx, OFFSET prompt32
+call WriteString
+call Crlf
+mov edx, OFFSET prompt33
+call WriteString
+call Crlf
+
+chosepoison:
+mov poison,1
+chosebuff:
+mov buff, 1
+choseheal:
+mov heal, 1
+choseice:
+mov ice, 1
+choseitem:
+add fullheal,1
+chosehp:
+add mhp,20
+add bmagic, 2
+chosemp:
+add mmp, 20
+add bstrength, 2
+
 
 done:
 call ReadInt
