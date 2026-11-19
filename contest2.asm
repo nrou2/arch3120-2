@@ -515,6 +515,21 @@ sub choices, 1
 call ReadInt
 mov input, eax
 
+dec input
+jz chosepoison
+dec input
+jz chosebuff
+dec input
+jz choseheal
+dec input
+jz choseice
+dec input
+jz choseitem
+dec input
+jz chosehp
+dec input
+jz chosemp
+
 chosepoison:
 mov poison,1
 jmp transition12
@@ -543,10 +558,7 @@ jmp transition12
 transition12:
 cmp choices, 1
 je shop1
-mov eax, mhp
-mov phealth, eax
-mov eax, mmp
-mov mp, eax
+
 mov eax, bstrength
 mov strength, eax
 mov eax, bmagic
