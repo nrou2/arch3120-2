@@ -31,7 +31,7 @@ heal dword 0
 ice dword 0
 regen dword 0
 ;text strings
-prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana), 5 - Full restore (if owned)",0
+prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana), 5 - Full restore (if owned), 6 - poison",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
@@ -218,8 +218,7 @@ call SetTextColor
 call ReadInt
 ;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
 mov input, eax
-cmp input, 6
-jz attack
+
 dec input
 jz attack
 dec input
@@ -230,6 +229,10 @@ dec input
 jz strbuff
 dec input
 jz item
+dec input
+jz poisoning
+dec input
+jmp attack
 
 attack:
 mov eax, green + (black * 16)
@@ -304,13 +307,13 @@ cmp poison, 0
 je shockfail
 cmp mp, 40
 jb shockfail
-mov eax, purple + (black * 16)
+mov eax, magenta + (black * 16)
 call SetTextColor
 call Crlf
 mov edx,OFFSET prompt34
 call WriteString
 call Crlf
-epoison = 1
+mov epoison,1
 
 jmp enemy
 
@@ -386,19 +389,32 @@ jmp enemy
 
 
 enemy:
-mov eax, purple + (black * 16)
+mov eax, magenta + (black * 16)
 call SetTextColor
 call Randomize
 call Crlf
 call Crlf
 mov edx,OFFSET prompt35
 cmp epoison, 0
-je enemy2
+je enemy11
 call WriteString
 
+enemypoison1:
+mov eax, 5
+jmp enemypoison
+enemypoison2:
+mov eax, 8
+jmp enemypoison
+mov eax, 10
+enemypoison3:
+jmp enemypoison
 
+enemypoison: 
+sub dhealth, eax
+cmp dhealth, 0
+jbe win
 
-enemy2:
+enemy11:
 mov eax, red + (black * 16)
 call SetTextColor
 call Randomize
