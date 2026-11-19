@@ -473,6 +473,7 @@ jmp turn1
 
 
 win:
+mov choices, 2
 add wave, 1
 cmp wave, 2
 je shop1
@@ -584,6 +585,7 @@ mov eax, mhp
 mov phealth, eax
 
 transition125:
+cmp choices,1
 je shop1
 
 mov eax, bstrength
