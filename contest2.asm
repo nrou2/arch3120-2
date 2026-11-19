@@ -43,6 +43,8 @@ prompt19 BYTE "Enemy current magic: ", 0
 prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic. Comes with full heal item. May parry on defend.", 0
 prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend.", 0
 prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend.", 0
+prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
+prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
 .code
 main PROC
 
@@ -280,9 +282,27 @@ call Crlf
 call CRLF
 
 enemy155:
+mov eax, 2
+call RandomRange
+cmp eax, 1
+je enemy175
+mov eax, dstrength
+sub dhealth, eax
+mov eax, strength
+sub dhealth, eax
+mov edx,OFFSET prompt23
+mov eax, green + (black * 16)
+call SetTextColor
+call WriteString
+call Crlf
+call Crlf
+
+cmp dhealth, 0
+jle win
 jmp enemy175
 enemy165:
 jmp enemy175
+
 enemy175:
 
 mov eax, white + (black * 16)
