@@ -12,6 +12,7 @@ dmagic dword 10
 mp DWORD 100 
 fullheal DWORD 0
 class DWORD 1
+defend dword 0
 
 ;move unlocks
 poison dword 0
@@ -20,7 +21,7 @@ buff dword 0
 heal dword 0
 ice dword 0
 regen dword 0
-prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Strengthen Self (costs 10, strength+10) 3 - Heal Self (costs 50, heal up to 50) 4 - Weaken Enemy (costs 15, reduce strength) 5 - Full Heal Item (free, only one) 6 - Icicle Spell (Costs 20)",0
+prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (mag +-50%, 20 mana) 4 - Strengthen Self (if owned) (10 mana)",0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
@@ -99,6 +100,7 @@ jmp turn1
 
 
 turn1:
+mov defend, 0
 mov edx,OFFSET prompt1
 call WriteString
 call Crlf
@@ -223,7 +225,13 @@ jle win
 jmp enemy
 
 concentrate:
-
+mov defend, 1
+cmp class, 2
+jz concentraterestore
+jmp enemy
+concentraterestore:
+add mp, 15
+jmp enemy
 shock:
 
 strbuff:
