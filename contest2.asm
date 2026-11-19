@@ -247,17 +247,31 @@ call WriteString
 
 mov eax, 10
 call RandomRange
-mov ebx, phealth
-sub ebx, dstrength
-sub ebx, eax
-mov phealth, ebx
+mov ebx, 0
+add ebx, dstrength
+add ebx, eax
 
+cmp defend, 0
+jz enemy15
+jmp enemy125
+enemy125:
+shr ebx, 1
+shr eax, 1
+sub phealth, ebx
+add eax, ebx
+call WriteInt
+call Crlf
+call CRLF
+jmp enemy175
 
-
+enemy15:
+sub phealth, ebx
 add eax, dstrength
 call WriteInt
 call Crlf
 call CRLF
+
+enemy175:
 
 mov eax, white + (black * 16)
 call SetTextColor
