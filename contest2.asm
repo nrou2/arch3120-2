@@ -716,6 +716,18 @@ call Crlf
 mov edx, OFFSET prompt38
 call WriteString
 call Crlf
+mov edx, OFFSET prompt39
+call WriteString
+call Crlf
+mov edx, OFFSET prompt40
+call WriteString
+call Crlf
+mov edx, OFFSET prompt41
+call WriteString
+call Crlf
+mov edx, OFFSET prompt42
+call WriteString
+call Crlf
 
 
 done:
