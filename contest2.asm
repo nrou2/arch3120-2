@@ -31,7 +31,9 @@ heal dword 0
 ice dword 0
 regen dword 0
 ;text strings
-prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) 3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana), 5 - Full restore (if owned), 6 - poison",0
+prompt1 BYTE "Enter Number: 1 - Basic Attack 2 - Concentrate (Block half of next attack + class bonus) ", 0
+prompt101 BYTE "3 - Shockspell (if owned) (Inconsistent damage averaging on your MAG, 20 mana) 4 - Strengthen Self (if owned) (10 mana)", 0
+prompt102 BYTE "5 - Full restore (if owned), 6 - poison, 7 - healing, 8 - icicle shot", 0
 prompt2 BYTE "Your current health: ",0
 prompt3 BYTE "Your current mana: ",0
 prompt4 BYTE "Enemy current health: ",0
@@ -141,6 +143,12 @@ mov defend, 0
 mov edx,OFFSET prompt1
 call WriteString
 call Crlf
+mov edx,OFFSET prompt101
+call WriteString
+call Crlf
+mov edx,OFFSET prompt102
+call WriteString
+call Crlf
 call Crlf
 mov edx,OFFSET prompt2
 call WriteString
@@ -233,7 +241,9 @@ jz item
 dec input
 jz poisoning
 dec input
-jmp attack
+jz  healing
+dec input
+jz icespell
 
 attack:
 mov eax, green + (black * 16)
