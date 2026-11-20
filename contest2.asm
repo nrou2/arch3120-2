@@ -682,6 +682,7 @@
 	jmp enemy175
 
 	enemy170:
+	;;Alert that youve debuffed the enemy too much, if youve hit the limit
 	mov edx,OFFSET prompt6
 	mov eax, yellow + (black * 16)
 	call SetTextColor
@@ -691,7 +692,7 @@
 
 
 	enemy175:
-
+	;;Check if the enemy is dead by now, if its not then go to the next turn
 	mov eax, white + (black * 16)
 	call SetTextColor
 
@@ -703,6 +704,7 @@
 
 
 	win:
+	;;Move to the correct transition between fights, or to the final victory screen
 	mov choices, 2
 	add wave, 1
 	cmp wave, 2
@@ -713,6 +715,7 @@
 
 
 	lose:
+	;Write that you lost, and skip to end of program
 	CALL CRLF
 	mov eax, red + (black * 16)
 	call SetTextColor
@@ -725,7 +728,7 @@
 	mov eax, yellow + (gray * 16)
 	call SetTextColor
 	call Clrscr
-	
+	;;write out all the shop prompts
 	mov edx, OFFSET prompt26
 	call WriteString
 	call crlf
@@ -770,7 +773,7 @@
 	je chosemp
 
 	jmp turn1
-
+	;;flip the flag to unlock whichever option you chose
 	chosepoison:
 	mov poison,1
 	jmp transition12
@@ -810,6 +813,8 @@
 	jg transition122
 	jmp transition123
 	transition122:
+
+	;;make sure you arent overhealed in hp or mp
 	mov eax, mmp
 	mov mp, eax
 
@@ -827,7 +832,7 @@
 	transition125:
 	cmp choices,1
 	je shop1
-
+	;reset enemy and player health and buffs before throwing you into the 2nd fight
 	mov eax, bstrength
 	mov strength, eax
 	mov eax, bmagic
@@ -845,6 +850,8 @@
 	mov eax, magenta + (white * 16)
 	call SetTextColor
 	call Clrscr
+
+	;Write out each line of the shop prompt, there's a lot
 
 	mov eax, magenta + (white * 16)
 	call SetTextColor
@@ -876,6 +883,7 @@
 	call WriteString
 	CALL CRLF
 	call ReadInt
+	;select the jump based on your input, to which option itll give you, which one you chose
 	mov input, eax
 	cmp input, 1
 	je chosejack
@@ -892,6 +900,8 @@
 	cmp input, 7
 	je choseice2
 	jmp shop2
+
+	;set the stat boosts and class variable for each option, or give you the spell
 	chosejack:
 	mov jack, 1
 	add mhp, 20
@@ -923,9 +933,11 @@
 
 
 	transition23:
+	;return to the shop if you still have a pick left	
 	sub choices, 1
 	cmp choices, 0
 	jne shop2
+	;reset player and enemy health parameters before sending you to the last fight
 	mov eax, mhp
 	mov phealth, eax
 	mov eax, mmp
@@ -944,6 +956,7 @@
 
 
 	truewin:
+	;finish the program with the victory screen
 	CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
