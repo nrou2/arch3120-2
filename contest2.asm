@@ -22,6 +22,12 @@ bmagic dword 10
 choices dword 2
 epoison dword 0
 ppoison dword 0
+jack dword 0
+vampire dword 0
+priest dword 0
+phantom dword 0
+hexblade dword 0
+
 
 ;move unlocks
 poison dword 0
@@ -761,7 +767,11 @@ choseice2:
 mov ice,1
 
 
-chose
+transition23:
+sub choices, 1
+cmp choices, 0
+jne shop2
+
 
 
 done:
