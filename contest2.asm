@@ -289,11 +289,14 @@ add eax, strength
 call WriteInt
 call Crlf
 
-cmp vampire, 0
-jne attack2
+cmp vampire, 1
+jl attack2
 shr eax, 1
 add phealth, eax
-
+mov edx,OFFSET prompt46
+call WriteString
+call WriteInt
+call Crlf
 
 attack2:
 
