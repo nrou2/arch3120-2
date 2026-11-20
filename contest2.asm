@@ -62,21 +62,23 @@ prompt26 BYTE "Pick two. You have automatically restored 50% HP and MP along the
 prompt27 BYTE "1 - Poison: 5% of enemy HP per turn, 40 mana.",0
 prompt28 BYTE "2 - Strength Buff: +2 strength, 10 mana.",0
 prompt29 BYTE "3 - Heal: +Magic x 5 HP, 30 mana. Can overheal.",0
-prompt30 BYTE "4 - Ice Spell: 2 x Magic + 10 damage, 40 mana.",0
+prompt30 BYTE "4 - Icicle Shot: 2 x Magic + 10 damage, 40 mana.",0
 prompt31 BYTE "5 - Full Restore Item.",0
 prompt32 BYTE "6 - +20 max HP, +2 magic, instantly restore HP and MP to full.",0
 prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.",0
 prompt34 BYTE "You poison the enemy.", 0
 prompt35 BYTE "The enemy took 5% of its max health as poison damage", 0
 prompt36 BYTE "You shot icicles at the enemy, dealing ",0
-prompt37 BYTE "Pick 2 benefits. Choosing your own class will increase benefit."
-prompt38 BYTE "1 - Knight subclass: +25 hp, parry on defend sometimes (Dupe: more damage).", 0
-prompt39 BYTE "2 - Mage: +5 magic, regain 15 mp on defend. (Dupe: 25 mp, 15 on basic attack) ",0
-prompt40 BYTE "3 - Dancer: +10 hp, +10 mp, debuff on defend.(Dupe: debuff doubled) ", 0
-prompt41 BYTE "4 - Jack: +20 hp, +15 mp, +1 str, +1 mag",0
-prompt42 BYTE "5 - Vampire: +1 strength, +50% lifesteal on basic attack", 0
-prompt43 Byte "6 - Priest: +10 mp, restore health per turn, with more gained the more mp you are missing.", 0
-prompt44 BYTE "7 - 
+prompt37 BYTE "Pick 2 benefits. Subclasses:"
+prompt38 BYTE "1 - Jack: +20 hp, +15 mp, +1 str, +1 mag",0
+prompt39 BYTE "2 - Vampire: +1 strength, +50% lifesteal on basic attack", 0
+prompt40 Byte "3 - Priest: +10 mp, restore health per turn, with more gained the more mp you are missing.", 0
+prompt41 Byte "4 - Phantom: +3 magic, drain 10 mp on attack.", 0
+prompt42 Byte "5 - Hexblade: Basic attack deals 5% of enemy's current hp", 0
+prompt43 Byte "Spells you may have missed:", 0
+prompt44 Byte "6 - Heal", 0
+prompt44 Byte "7 - Icicle Shot:", 0
+
 .code
 main PROC
 
@@ -710,6 +712,8 @@ mov ppoison, 0
 jmp turn1
 
 shop2:
+mov eax, red + (black * 16)
+call SetTextColor
 mov edx, OFFSET prompt37
 call WriteString
 call Crlf
@@ -728,6 +732,21 @@ call Crlf
 mov edx, OFFSET prompt42
 call WriteString
 call Crlf
+mov edx, OFFSET prompt42
+call WriteString
+call Crlf
+mov edx, OFFSET prompt43
+call WriteString
+call Crlf
+mov edx, OFFSET prompt44
+call WriteString
+call Crlf
+call ReadInt
+mov input, eax
+
+
+
+chose
 
 
 done:
