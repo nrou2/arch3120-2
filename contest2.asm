@@ -1,7 +1,6 @@
 	INCLUDE Irvine32.inc
 	.data
-	loss BYTE "You Lose",0
-	vic BYTE "You Win",0
+	;;Various flags and stats
 	phealth DWORD 100
 	strength DWORD 10
 	magic DWORD 10
@@ -36,7 +35,10 @@
 	heal dword 0
 	ice dword 0
 	regen dword 0
+
 	;text strings
+	loss BYTE "You Lose",0
+	vic BYTE "You Win",0
 	prompt1 BYTE "Enter Number of an unlocked attack (not all are, 1 and 2 are free): ",0
 	prompt101 Byte "1 - Basic Attack ", 0
 	prompt102 Byte "2 - Concentrate (Block half of next attack + class specific bonus)",0
@@ -101,6 +103,7 @@
 
 	mov eax, white + (black * 16)
 	call SetTextColor
+	;;Initial class description prompt, telling you what each one does so you can pick one
 	mov edx,OFFSET prompt18
 	call WriteString
 	CALL CRLF
@@ -125,6 +128,7 @@
 	dec input
 	jz dancer
 
+	;;Initialize the player with the right parameters for their class, and make sure their class flag is tripped
 	knight: 
 	mov strength, 13
 	mov magic, 5
@@ -167,6 +171,7 @@
 
 
 	turn1:
+	;;Ultimately this portion heals the player by roughly 15 * the percentage of mp they are missing
 	mov eax, white + (black * 16)
 	call SetTextColor
 	cmp priest, 1
@@ -192,6 +197,7 @@
 	mov eax, white + (black * 16)
 
 	afterpriest:
+	;;Write out instruction list. Also clear the defending flag
 	mov defend, 0
 	mov edx,OFFSET prompt1
 	call WriteString
@@ -224,6 +230,7 @@
 	mov edx,OFFSET prompt2
 	call WriteString
 	CALL CRLF
+	;Write out player and enemy stats
 	mov eax, green + (black * 16)
 	call SetTextColor
 	mov eax, phealth
