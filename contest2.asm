@@ -60,7 +60,7 @@ prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
 prompt19 BYTE "Enemy current magic: ", 0
 prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic.  May parry on defend.", 0
 prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend.", 0
-prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend. Comes with full heal item.", 0
+prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff,poison, full restore, may debuff on defend.", 0
 prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
 prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
 prompt25 BYTE "You either lack the mana, or the move itself. Restarting turn.", 0
@@ -153,6 +153,7 @@ mov mmp, 80
 mov mhp, 90
 mov bstrength, 7
 mov bmagic, 8
+mov poison, 1
 jmp turn1
 
 
@@ -335,6 +336,27 @@ add mp, 10
 jmp attack3
 
 attack3:
+cmp hexblade, 1
+jl attack4
+mov eax, lightmagenta + (black * 16)
+call SetTextColor
+mov edx,OFFSET prompt47
+call WriteString
+mov eax, dhealth
+shr eax, 3
+mov ebx, eax
+
+cmp class, 3
+jne attack35
+shr ebx, 1
+add eax, ebx
+
+attack35:
+call WriteInt
+sub dhealth,eax
+
+
+attack4:
 
 mov eax, white + (black * 16)
 call SetTextColor
@@ -541,7 +563,7 @@ add eax, 5
 enemypoison: 
 sub dhealth, eax
 cmp dhealth, 0
-jbe win
+jle win
 
 enemy11:
 mov eax, red + (black * 16)
