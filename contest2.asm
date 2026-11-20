@@ -571,6 +571,7 @@
 	call WriteString
 
 	enemypoison1:
+	;;Add poison damage up to 5%, adding more for each wave, and a bonus if the player is dancer
 	mov eax, 5
 	cmp wave, 1
 	jle enemypoison4
@@ -595,6 +596,7 @@
 	jle win
 
 	enemy11:
+	;;Set up attack values, but hold onto them incase they need to be adjusted due to defend
 	mov eax, red + (black * 16)
 	call SetTextColor
 	call Randomize
@@ -614,6 +616,7 @@
 	jmp enemy125
 
 	enemy125:
+	;;Cut damage in half if you are concentrating/defending
 	shr ebx, 1
 	shr eax, 1
 	sub phealth, ebx
@@ -639,6 +642,7 @@
 	jmp enemy175
 
 	enemy155:
+	;;Reflect damage if you are the knight and successfully roll for parry
 	mov eax, 2
 	call RandomRange
 	cmp eax, 1
@@ -658,6 +662,7 @@
 	jle win
 	jmp enemy175
 	enemy165:
+	;Roll for debuff curse if you are the dancer
 	mov eax, 2
 	call RandomRange
 	cmp eax, 1
