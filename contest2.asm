@@ -84,6 +84,10 @@ prompt42 Byte "5 - Hexblade: Basic attack deals 5% of enemy's current hp. More e
 prompt43 Byte "Spells you may have missed:", 0
 prompt44 Byte "6 - Heal", 0
 prompt45 Byte "7 - Icicle Shot:", 0
+prompt46 Byte "Healed yourself with an additional stolen ", 0
+prompt47 Byte "The curse wrang an additional ", 0
+prompt48 Byte "Your blessings healed you for", 0
+prompt49 Byte "Your MP was restored  a bonus ", 0
 
 .code
 main PROC
@@ -284,6 +288,14 @@ mov dhealth, ebx
 add eax, strength
 call WriteInt
 call Crlf
+
+cmp vampire, 0
+jne attack2
+shr eax, 1
+add phealth, eax
+
+
+attack2:
 
 mov eax, white + (black * 16)
 call SetTextColor
@@ -745,13 +757,13 @@ call Crlf
 mov edx, OFFSET prompt42
 call WriteString
 call Crlf
-mov edx, OFFSET prompt42
-call WriteString
-call Crlf
 mov edx, OFFSET prompt43
 call WriteString
 call Crlf
 mov edx, OFFSET prompt44
+call WriteString
+call Crlf
+mov edx, OFFSET prompt45
 call WriteString
 call Crlf
 call ReadInt
