@@ -431,11 +431,12 @@
 	jmp enemy
 
 	icespell:
+	;;Check if the player can use the ice spell
 	cmp ice, 0
 	je shockfail
 	cmp mp, 40
 	jb shockfail
-
+	;;Deal 2xMagic+10 damage, and subtract 40 mana from the player. Win if it cuts hp to 0
 	mov edx,OFFSET prompt36
 	mov eax, green + (black * 16)
 	call SetTextColor
@@ -451,12 +452,15 @@
 	jmp enemy
 
 	shockfail:
+	;;General purpose spell failure message that lets you choose your turn again.
+	;;It's called shock because shock is simply the first one I designed it for, then realized I didn't need to remake it every time
 	mov eax, yellow + (black * 16)
 	mov edx,OFFSET prompt25
 	call WriteString
 	jmp turn1
 
 	healing:
+	;;Heal the player for 5x their magic, but move to the spell fail branch if they cant
 	cmp heal, 0
 	je shockfail
 	cmp mp, 30
@@ -475,6 +479,7 @@
 	jmp enemy
 
 	poisoning:
+	;;Poison the enemy, but jump to the spell fail branch if it fails
 	cmp poison, 0
 	je shockfail
 	cmp mp, 40
@@ -490,6 +495,7 @@
 	jmp enemy
 
 	strbuff:
+	;;Check if the player is allowed to buff or not
 	cmp buff, 0
 	je shockfail
 	;CALL CRLF
@@ -511,6 +517,7 @@
 	jmp enemy
 
 	buffsuccess:
+	;;Increase strength if you own the buff and can afford it and use it
 	mov eax, mp
 	sub eax, 10
 	mov mp, eax
@@ -527,6 +534,7 @@
 	item:
 	cmp fullheal, 0
 	JNZ itemsuccess
+	;;Tell you that you failed if you use the item without owning it
 	mov eax, red + (black * 16)
 	call SetTextColor
 
@@ -539,10 +547,11 @@
 	mov eax, white + (black * 16)
 	call SetTextColor
 
-	jmp enemy
+	jmp turn1
 
 
 	itemsuccess:
+	;;Restore all of your hp and mp to your default max if you use the item
 	CALL CRLF
 	mov eax, green + (black * 16)
 	call SetTextColor
