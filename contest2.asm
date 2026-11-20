@@ -42,7 +42,7 @@ prompt8 BYTE "You already used that!",0
 prompt9 BYTE "Enemy attacked for ",0
 prompt10 BYTE "You used a basic attack dealing ",0
 prompt11 BYTE "You shocked the enemy, dealing ",0
-prompt12 BYTE "You healed 5x your magic stat.",0
+prompt12 BYTE "You healed using 5x your magic stat.",0
 prompt13 BYTE "You used your full heal up.",0
 prompt14 BYTE "You reduced the enemy strength.",0
 prompt15 BYTE "You raised your own strength!",0
@@ -66,6 +66,7 @@ prompt32 BYTE "6 - +20 max HP, +2 magic, instantly restore HP and MP to full.",0
 prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.",0
 prompt34 BYTE "You poison the enemy.", 0
 prompt35 BYTE "The enemy took 5% of its max health as poison damage", 0
+prompt36 BYTE "You shot icicles at the enemy, dealing ",0
 .code
 main PROC
 
@@ -294,6 +295,8 @@ sub eax, 13
 add eax, magic
 sub dhealth, eax
 call WriteInt
+cmp dhealth, 0
+jle win
 jmp enemy
 
 icespell:
@@ -302,7 +305,7 @@ je shockfail
 cmp mp, 40
 jb shockfail
 
-mov edx,OFFSET prompt11
+mov edx,OFFSET prompt36
 mov eax, green + (black * 16)
 call SetTextColor
 call WriteString
@@ -310,6 +313,10 @@ sub mp, 40
 mov eax, magic
 shl eax, 1
 add eax, 10
+call WriteInt
+sub dhealth, eax
+cmp dhealth, 0
+jle win
 jmp enemy
 
 shockfail:
