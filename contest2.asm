@@ -121,7 +121,7 @@ mov phealth, 125
 mov mp, 50
 mov class, 1
 mov mmp, 50
-mov mhp, 50
+mov mhp, 125
 mov bstrength, 13
 mov bmagic, 5
 jmp turn1
@@ -687,13 +687,13 @@ mov eax, mmp
 shr eax, 1
 add mp, eax
 
-mov eax, mhp
-cmp phealth, eax
+mov eax, mmp
+cmp mp, eax
 jg transition122
 jmp transition123
 transition122:
-mov eax, mhp
-mov phealth, eax
+mov eax, mmp
+mov mp, eax
 
 
 transition123:
@@ -765,7 +765,7 @@ add bstrength, 1
 mov vampire, 1
 jmp transition23
 chosepriest:
-add bmp, 1
+add mmp, 1
 mov priest, 1
 jmp transition23
 chosephantom:
