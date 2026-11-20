@@ -75,7 +75,7 @@ prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.
 prompt34 BYTE "You poison the enemy.", 0
 prompt35 BYTE "The enemy took 5% of its max health as poison damage", 0
 prompt36 BYTE "You shot icicles at the enemy, dealing ",0
-prompt37 BYTE "Pick 2 benefits. Subclasses:"
+prompt37 BYTE "Pick 2 benefits. You were healed fully this time. Subclasses:"
 prompt38 BYTE "1 - Jack: +20 hp, +15 mp, +1 str, +1 mag",0
 prompt39 BYTE "2 - Vampire: +1 strength, +50% lifesteal on basic attack", 0
 prompt40 Byte "3 - Priest: +10 mp, restore health per turn, with more gained the more mp you are missing.", 0
@@ -596,6 +596,9 @@ mov choices, 2
 add wave, 1
 cmp wave, 2
 je shop1
+cmp wave, 3
+je shop2
+jmp truewin
 
 
 lose:
@@ -776,10 +779,15 @@ jmp transition23
 transition23:
 sub choices, 1
 cmp choices, 0
-jne shop2
+	
 
 
-
+truewin:
+mov eax, white + (black * 16)
+call SetTextColor
+mov edx,OFFSET vic
+call WriteString
+call Crlf
 done:
 call ReadInt
 INVOKE ExitProcess,0
