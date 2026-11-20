@@ -97,16 +97,16 @@
 	call SetTextColor
 	mov edx,OFFSET prompt18
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt20
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt21
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt22
 	call WriteString	
-	call Crlf
+	;CALL CRLF
 
 	call ReadInt
 	;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
@@ -178,94 +178,94 @@
 	call WriteString	
 	mov ebx, eax
 	call WriteInt
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 	mov eax, white + (black * 16)
 
 	afterpriest:
 	mov defend, 0
 	mov edx,OFFSET prompt1
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt101
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt102
 	call WriteString
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 	mov edx,OFFSET prompt2
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, green + (black * 16)
 	call SetTextColor
 	mov eax, phealth
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET prompt3
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, blue + (black * 16)
 	call SetTextColor
 	mov eax, mp
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET prompt4
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, red + (black * 16)
 	call SetTextColor
 	mov eax, dhealth
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET prompt16
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, yellow + (black * 16)
 	call SetTextColor
 	mov eax, strength
 	call WriteInt
 	mov eax, white + (black * 16)
 	call SetTextColor
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt7
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, yellow + (black * 16)
 	call SetTextColor
 	mov eax, dstrength
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET prompt17
 	mov eax, white + (black * 16)
 	call SetTextColor
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, cyan + (black * 16)
 	call SetTextColor
 	mov eax, magic
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET prompt19
 	mov eax, white + (black * 16)
 	call SetTextColor
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, cyan + (black * 16)
 	call SetTextColor
 	mov eax, dmagic
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	call ReadInt
@@ -293,7 +293,7 @@
 	mov eax, green + (black * 16)
 	call SetTextColor
 	call Randomize
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt10
 	call WriteString
 
@@ -311,7 +311,7 @@
 
 	add eax, strength
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 
 
 
@@ -322,7 +322,7 @@
 	mov edx,OFFSET prompt46
 	call WriteString
 	call WriteInt
-	call Crlf
+	;CALL CRLF
 	jmp attack2
 
 	attack2:
@@ -396,7 +396,7 @@
 	sub dhealth, eax
 	call WriteInt
 	mov eax, yellow + (black * 16)
-	call Crlf
+	;CALL CRLF
 	cmp dhealth, 0
 	jle win
 	jmp enemy
@@ -435,10 +435,10 @@
 	sub mp, 30
 	mov eax, green + (black * 16)
 	call SetTextColor
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt12
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov eax, magic
 	mov ebx, 5
 	mul ebx
@@ -453,10 +453,10 @@
 	sub mp, 40
 	mov eax, magenta + (black * 16)
 	call SetTextColor
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt34
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov epoison,1
 
 	jmp enemy
@@ -464,7 +464,7 @@
 	strbuff:
 	cmp buff, 0
 	je shockfail
-	call Crlf
+	;CALL CRLF
 	mov eax, mp
 	sub eax, 10
 	cmp eax,0
@@ -474,9 +474,9 @@
 	call SetTextColor
 	mov edx,OFFSET prompt5
 
-	call Crlf
+	;CALL CRLF
 	call WriteString
-	call Crlf
+	;CALL CRLF
 
 	mov eax, white + (black * 16)
 	call SetTextColor
@@ -491,7 +491,7 @@
 	add strength,2
 	mov edx,OFFSET prompt15
 	call WriteString
-	call CRLF
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	jmp enemy
@@ -503,11 +503,11 @@
 	call SetTextColor
 
 
-	call Crlf
+	;CALL CRLF
 	mov edx,OFFSET prompt8
 	call WriteString
 
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 
@@ -515,7 +515,7 @@
 
 
 	itemsuccess:
-	call CRLF
+	;CALL CRLF
 	mov eax, green + (black * 16)
 	call SetTextColor
 	mov fullheal,0
@@ -525,7 +525,7 @@
 	mov mp, eax
 	mov edx,OFFSET prompt13
 	call WriteString
-	call CRLF
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	jmp enemy
@@ -536,8 +536,8 @@
 	mov eax, magenta + (black * 16)
 	call SetTextColor
 	call Randomize
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 	mov edx,OFFSET prompt35
 	cmp epoison, 0
 	je enemy11
@@ -570,8 +570,8 @@
 	mov eax, red + (black * 16)
 	call SetTextColor
 	call Randomize
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 	mov edx,OFFSET prompt9
 	call WriteString
 
@@ -591,8 +591,8 @@
 	sub phealth, ebx
 	add eax, ebx
 	call WriteInt
-	call Crlf
-	call CRLF
+	;CALL CRLF
+	;CALL CRLF
 
 	cmp class, 1
 	je enemy155
@@ -606,8 +606,8 @@
 	sub phealth, ebx
 	add eax, dstrength
 	call WriteInt
-	call Crlf
-	call CRLF
+	;CALL CRLF
+	;CALL CRLF
 	jmp enemy175
 
 	enemy155:
@@ -623,8 +623,8 @@
 	mov eax, green + (black * 16)
 	call SetTextColor
 	call WriteString
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 
 	cmp dhealth, 0
 	jle win
@@ -649,8 +649,8 @@
 	mov eax, green + (black * 16)
 	call SetTextColor
 	call WriteString
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 	jmp enemy175
 
 	enemy170:
@@ -658,8 +658,8 @@
 	mov eax, yellow + (black * 16)
 	call SetTextColor
 	call WriteString
-	call Crlf
-	call Crlf
+	;CALL CRLF
+	;CALL CRLF
 
 
 	enemy175:
@@ -694,25 +694,25 @@
  
 	mov edx, OFFSET prompt27
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt28
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt29
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt30
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt31
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt32
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt33
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	sub choices, 1
 	call ReadInt
 	mov input, eax
@@ -802,35 +802,36 @@
 	jmp turn1
 
 	shop2:
+	;;CALL CRLF
 	mov eax, red + (black * 16)
 	call SetTextColor
 	mov edx, OFFSET prompt37
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt38
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt39
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt40
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt41
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt42
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt43
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt44
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	mov edx, OFFSET prompt45
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	call ReadInt
 	mov input, eax
 	cmp input, 1
@@ -898,12 +899,12 @@
 
 
 	truewin:
-	call Crlf
+	;CALL CRLF
 	mov eax, white + (black * 16)
 	call SetTextColor
 	mov edx,OFFSET vic
 	call WriteString
-	call Crlf
+	;CALL CRLF
 	done:
 	call ReadInt
 	INVOKE ExitProcess,0
