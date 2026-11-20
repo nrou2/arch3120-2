@@ -307,6 +307,7 @@ cmp poison, 0
 je shockfail
 cmp mp, 40
 jb shockfail
+sub mp, 40
 mov eax, magenta + (black * 16)
 call SetTextColor
 call Crlf
@@ -564,20 +565,22 @@ sub choices, 1
 call ReadInt
 mov input, eax
 
-dec input
-jz chosepoison
-dec input
-jz chosebuff
-dec input
-jz choseheal
-dec input
-jz choseice
-dec input
-jz choseitem
-dec input
-jz chosehp
-dec input
-jz chosemp
+cmp input, 1
+je chosepoison
+cmp input, 2
+je chosebuff
+cmp input, 3
+je choseheal
+cmp input, 4
+je choseice
+cmp input, 5
+je choseitem
+cmp input, 6
+je chosehp
+cmp input, 7
+je chosemp
+
+jmp turn1
 
 chosepoison:
 mov poison,1
