@@ -755,14 +755,21 @@ mov input, eax
 
 chosejack:
 mov jack, 1
+add mhp, 20
+add mmp, 15
+add bstrength, 1
+add bmagic, 1
 jmp transition23
 chosevampire:
+add bstrength, 1
 mov vampire, 1
 jmp transition23
 chosepriest:
+add bmp, 1
 mov priest, 1
 jmp transition23
 chosephantom:
+add bmagic, 3
 mov phantom, 1
 jmp transition23
 chosehexblade:
