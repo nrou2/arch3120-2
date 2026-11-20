@@ -743,12 +743,19 @@ call WriteString
 call Crlf
 call ReadInt
 mov input, eax
+
 chosejack:
+
 chosevampire:
+
 chosepriest:
+
 chosephantom:
+
 chosehexblade:
+
 choseheal2:
+
 mov heal, 1
 choseice2:
 mov ice,1
