@@ -300,7 +300,7 @@
 	;I don't remember if we went over ReadInt specifically in class, but I assumed if ReadString works in one of our labs, there'd probably be a ReadInt, and that worked. Same with Writeint, found the register details in the book.
 	call Clrscr
 	mov input, eax
-
+	;;Decide branch based on what the player enters
 	dec input
 	jz attack
 	dec input
@@ -325,7 +325,7 @@
 	;CALL CRLF
 	mov edx,OFFSET prompt10
 	call WriteString
-
+	;;Figure out the attack value after the random variation
 	mov eax, 7
 	call RandomRange
 	sub eax, 3
@@ -343,7 +343,7 @@
 	CALL CRLF
 
 
-
+	;;If the player is vampire, give their lifesteal 
 	cmp vampire, 1
 	jl attack2
 	shr eax, 1
@@ -355,6 +355,7 @@
 	jmp attack2
 
 	attack2:
+	;;If the player is phantom, then give them their 10mp 
 	cmp phantom, 1
 	jl attack3
 	mov eax, blue + (black * 16)
@@ -365,6 +366,10 @@
 	jmp attack3
 
 	attack3:
+	;;If the player is hexblade,give the bonus that deals 1/8th of the enemy's health. A bonus 16th if dancer.
+	;;I originally thought of having the subclasses as upgrades to the existing classes, this was Dancer's
+	;; I decided to open them up for more player creativity, but still wanted to give dancer something
+	;;Since it lost a piece of its vision more than the others in doing so
 	cmp hexblade, 1
 	jl attack4
 	mov eax, lightmagenta + (black * 16)
@@ -386,7 +391,7 @@
 
 
 	attack4:
-
+	;;Return text color, see if the fight has been won yet and transition to the next fight / final win screen
 	mov eax, white + (black * 16)
 	call SetTextColor
 
@@ -395,6 +400,8 @@
 	jmp enemy
 
 	concentrate:
+	;;Cue the defend state, and bring back some mp if you're the mage.
+	;;Other defend features are in the enemy's turn, since it attacks then
 	mov defend, 1
 	cmp class, 2
 	jz concentraterestore
@@ -406,11 +413,14 @@
 
 
 	shock:
+	;;check if youre allowed to use it
 	cmp class, 2
 	jne shockfail
 	cmp mp, 20
 	jb shockfail
 
+
+	;;deal a random amount of damage, the player's magic + 3, +- 14 at random, for 20 mp, then check if you won the fight with that
 	mov edx,OFFSET prompt11
 	mov eax, green + (black * 16)
 	call SetTextColor
