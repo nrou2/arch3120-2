@@ -1,4 +1,6 @@
 # arch3120-2
 
-link to prior contest if whoever is reading wishes to verify claims of +20 line commits being allowed ports from the first contest
+To run: Stick it in the irvine project32 sample project, or use the exe in the repository
+
+link to prior contest to verify that ported commits are not 20 lines of *fresh* code and just continuations of the first project
 https://github.com/nrou2/arch3120
