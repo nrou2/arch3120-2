@@ -122,7 +122,7 @@ mov mp, 50
 mov class, 1
 mov fullheal,1 
 mov mmp, 50
-mov mhp, 125
+mov mhp, 50
 mov bstrength, 13
 mov bmagic, 5
 jmp turn1
@@ -787,11 +787,16 @@ transition23:
 sub choices, 1
 cmp choices, 0
 jne shop2
+mov eax, mhp
+mov phealth, eax
+mov eax, mmp
+mov mp, eax
 mov eax, bstrength
 mov strength, eax
 mov eax, bmagic
 mov magic, eax
-mov dhealth, 150
+mov dhealth, 300
+mov dstrength, 20
 mov strength, 15
 mov epoison, 0
 mov ppoison, 0
