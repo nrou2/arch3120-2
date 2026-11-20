@@ -790,7 +790,21 @@ call WriteString
 call Crlf
 call ReadInt
 mov input, eax
-
+cmp input, 1
+je chosejack
+cmp input, 2
+je chosevampire
+cmp input, 3
+je chosepriest
+cmp input, 4
+je chosephantom
+cmp input, 5
+je chosehexblade
+cmp input, 6
+je choseheal2
+cmp input, 7
+je choseice2
+jmp shop2
 chosejack:
 mov jack, 1
 add mhp, 20
