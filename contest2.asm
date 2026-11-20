@@ -296,6 +296,22 @@ sub dhealth, eax
 call WriteInt
 jmp enemy
 
+icespell:
+cmp ice, 0
+je shockfail
+cmp mp, 40
+jb shockfail
+
+mov edx,OFFSET prompt11
+mov eax, green + (black * 16)
+call SetTextColor
+call WriteString
+sub mp, 40
+mov eax, magic
+shl eax, 1
+add eax, 10
+jmp enemy
+
 shockfail:
 mov eax, yellow + (black * 16)
 mov edx,OFFSET prompt25
