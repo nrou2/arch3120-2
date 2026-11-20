@@ -58,9 +58,9 @@ prompt16 BYTE "Your current strength: ", 0
 prompt17 BYTE "Your current magic: ", 0
 prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
 prompt19 BYTE "Enemy current magic: ", 0
-prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic. Comes with full heal item. May parry on defend.", 0
+prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic.  May parry on defend.", 0
 prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend.", 0
-prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend.", 0
+prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff, may debuff on defend. Comes with full heal item.", 0
 prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
 prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
 prompt25 BYTE "You either lack the mana, or the move itself. Restarting turn.", 0
@@ -120,7 +120,6 @@ mov magic, 5
 mov phealth, 125
 mov mp, 50
 mov class, 1
-mov fullheal,1 
 mov mmp, 50
 mov mhp, 50
 mov bstrength, 13
@@ -139,6 +138,7 @@ mov bstrength, 5
 mov bmagic, 11
 jmp turn1
 dancer:
+mov fullheal,1 
 mov strength, 7
 mov magic, 8
 mov phealth, 90
