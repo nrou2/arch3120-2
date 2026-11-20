@@ -69,6 +69,14 @@ prompt33 BYTE "7 - +20 max MP, +2 strength, instantly restore HP and MP to full.
 prompt34 BYTE "You poison the enemy.", 0
 prompt35 BYTE "The enemy took 5% of its max health as poison damage", 0
 prompt36 BYTE "You shot icicles at the enemy, dealing ",0
+prompt37 BYTE "Pick 2 benefits. Choosing your own class will increase benefit."
+prompt38 BYTE "1 - Knight subclass: +25 hp, parry on defend sometimes (Dupe: more damage).", 0
+prompt39 BYTE "2 - Mage: +5 magic, regain 15 mp on defend. (Dupe: 25 mp, 15 on basic attack) ",0
+prompt40 BYTE "3 - Dancer: +10 hp, +10 mp, debuff on defend.(Dupe: debuff doubled) ", 0
+prompt41 BYTE "4 - Jack: +20 hp, +15 mp, +1 str, +1 mag",0
+prompt42 BYTE "5 - Vampire: +1 strength, +50% lifesteal on basic attack", 0
+prompt43 Byte "6 - Priest: +10 mp, restore health per turn, with more gained the more mp you are missing.", 0
+prompt44 BYTE "7 - 
 .code
 main PROC
 
@@ -591,9 +599,7 @@ jmp done
 
 
 shop1:
-mov edx, OFFSET prompt26
-call WriteString
-call Crlf
+ 
 mov edx, OFFSET prompt27
 call WriteString
 call Crlf
@@ -702,6 +708,14 @@ mov strength, 15
 mov epoison, 0
 mov ppoison, 0
 jmp turn1
+
+shop2:
+mov edx, OFFSET prompt37
+call WriteString
+call Crlf
+mov edx, OFFSET prompt38
+call WriteString
+call Crlf
 
 
 done:
