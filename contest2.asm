@@ -65,7 +65,7 @@ prompt23 BYTE "You parried the attack, receiving half damage and reflecting more
 prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
 prompt25 BYTE "You either lack the mana, or the move itself. Restarting turn.", 0
 prompt26 BYTE "Pick two. You have automatically restored 50% HP and MP along the way.",0
-prompt27 BYTE "1 - Poison: 5% of enemy HP per turn, 40 mana.",0
+prompt27 BYTE "1 - Poison: 5% of enemy HP per turn, 40 mana. More effective as dancer.",0
 prompt28 BYTE "2 - Strength Buff: +2 strength, 10 mana.",0
 prompt29 BYTE "3 - Heal: +Magic x 5 HP, 30 mana. Can overheal.",0
 prompt30 BYTE "4 - Icicle Shot: 2 x Magic + 10 damage, 40 mana.",0
@@ -80,7 +80,7 @@ prompt38 BYTE "1 - Jack: +20 hp, +15 mp, +1 str, +1 mag",0
 prompt39 BYTE "2 - Vampire: +1 strength, +50% lifesteal on basic attack", 0
 prompt40 Byte "3 - Priest: +10 mp, restore health per turn, with more gained the more mp you are missing.", 0
 prompt41 Byte "4 - Phantom: +3 magic, drain 10 mp on attack.", 0
-prompt42 Byte "5 - Hexblade: Basic attack deals 5% of enemy's current hp", 0
+prompt42 Byte "5 - Hexblade: Basic attack deals 5% of enemy's current hp. More effective as dancer.", 0
 prompt43 Byte "Spells you may have missed:", 0
 prompt44 Byte "6 - Heal", 0
 prompt45 Byte "7 - Icicle Shot:", 0
@@ -476,9 +476,13 @@ jmp enemypoison
 enemypoison2:
 mov eax, 8
 jmp enemypoison
-mov eax, 10
 enemypoison3:
+mov eax, 15
 jmp enemypoison
+
+cmp class, 3
+jne enemypoison
+add eax, 5
 
 enemypoison: 
 sub dhealth, eax
