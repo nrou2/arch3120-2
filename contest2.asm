@@ -315,8 +315,11 @@ mov edx,OFFSET prompt12
 call WriteString
 call Crlf
 mov eax, magic
+mov ebx, 5
+mul ebx
 add phealth, eax
 jmp enemy
+
 poisoning:
 cmp poison, 0
 je shockfail
