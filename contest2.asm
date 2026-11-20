@@ -87,7 +87,7 @@ prompt45 Byte "7 - Icicle Shot:", 0
 prompt46 Byte "Healed yourself with an additional stolen ", 0
 prompt47 Byte "The curse wrang an additional ", 0
 prompt48 Byte "Your blessings healed you for", 0
-prompt49 Byte "Your MP was restored  a bonus ", 0
+prompt49 Byte "Your MP was restored  a bonus 10", 0
 
 .code
 main PROC
@@ -171,11 +171,15 @@ mul ebx
 mov ebx, mmp
 div ebx            
 add phealth, eax
+mov eax, ebx
+mov eax, yellow + (black * 16)
 mov edx,OFFSET prompt48
 call WriteString	
+mov ebx, eax
 call WriteInt
 call Crlf
-
+call Crlf
+mov eax, white + (black * 16)
 
 afterpriest:
 mov defend, 0
@@ -308,6 +312,8 @@ add eax, strength
 call WriteInt
 call Crlf
 
+
+
 cmp vampire, 1
 jl attack2
 shr eax, 1
@@ -316,8 +322,19 @@ mov edx,OFFSET prompt46
 call WriteString
 call WriteInt
 call Crlf
+jmp attack2
 
 attack2:
+cmp phantom, 1
+jl attack3
+mov eax, blue + (black * 16)
+call SetTextColor
+mov edx,OFFSET prompt49
+call WriteString
+add mp, 10
+jmp attack3
+
+attack3:
 
 mov eax, white + (black * 16)
 call SetTextColor
@@ -506,14 +523,17 @@ call WriteString
 
 enemypoison1:
 mov eax, 5
-jmp enemypoison
+cmp wave, 1
+jle enemypoison4
 enemypoison2:
-mov eax, 8
-jmp enemypoison
+add ax, 3
+cmp wave, 2
+jle enemypoison4
 enemypoison3:
-mov eax, 15
-jmp enemypoison
+add eax, 7
+jmp enemypoison4
 
+enemypoison4:
 cmp class, 3
 jne enemypoison
 add eax, 5
@@ -849,7 +869,6 @@ mov eax, bmagic
 mov magic, eax
 mov dhealth, 300
 mov dstrength, 20
-mov strength, 15
 mov epoison, 0
 mov ppoison, 0
 jmp turn1
