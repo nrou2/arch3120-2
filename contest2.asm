@@ -779,7 +779,16 @@ jmp transition23
 transition23:
 sub choices, 1
 cmp choices, 0
-	
+jne shop2
+mov eax, bstrength
+mov strength, eax
+mov eax, bmagic
+mov magic, eax
+mov dhealth, 150
+mov strength, 15
+mov epoison, 0
+mov ppoison, 0
+jmp turn1
 
 
 truewin:
