@@ -289,12 +289,15 @@ call SetTextColor
 call WriteString
 jle enemy
 sub mp, 20
-mov eax, 27
+mov eax, 28
 call RandomRange
-sub eax, 13
+sub eax, 14
 add eax, magic
+add eax, 3
 sub dhealth, eax
 call WriteInt
+mov eax, yellow + (black * 16)
+call Crlf
 cmp dhealth, 0
 jle win
 jmp enemy
