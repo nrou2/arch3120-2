@@ -42,7 +42,7 @@ prompt8 BYTE "You already used that!",0
 prompt9 BYTE "Enemy attacked for ",0
 prompt10 BYTE "You used a basic attack dealing ",0
 prompt11 BYTE "You shocked the enemy, dealing ",0
-prompt12 BYTE "You healed 50 damage.",0
+prompt12 BYTE "You healed 5x your magic stat.",0
 prompt13 BYTE "You used your full heal up.",0
 prompt14 BYTE "You reduced the enemy strength.",0
 prompt15 BYTE "You raised your own strength!",0
@@ -302,6 +302,21 @@ mov edx,OFFSET prompt25
 call WriteString
 jmp turn1
 
+healing:
+cmp heal, 0
+je shockfail
+cmp mp, 30
+jb shockfail
+sub mp, 30
+mov eax, green + (black * 16)
+call SetTextColor
+call Crlf
+mov edx,OFFSET prompt12
+call WriteString
+call Crlf
+mov eax, magic
+add phealth, eax
+jmp enemy
 poisoning:
 cmp poison, 0
 je shockfail
