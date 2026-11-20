@@ -83,7 +83,7 @@ prompt41 Byte "4 - Phantom: +3 magic, drain 10 mp on attack.", 0
 prompt42 Byte "5 - Hexblade: Basic attack deals 5% of enemy's current hp", 0
 prompt43 Byte "Spells you may have missed:", 0
 prompt44 Byte "6 - Heal", 0
-prompt44 Byte "7 - Icicle Shot:", 0
+prompt45 Byte "7 - Icicle Shot:", 0
 
 .code
 main PROC
@@ -751,20 +751,26 @@ call ReadInt
 mov input, eax
 
 chosejack:
-
+mov jack, 1
+jmp transition23
 chosevampire:
-
+mov vampire, 1
+jmp transition23
 chosepriest:
-
+mov priest, 1
+jmp transition23
 chosephantom:
-
+mov phantom, 1
+jmp transition23
 chosehexblade:
-
+mov hexblade, 1
+jmp transition23
 choseheal2:
-
 mov heal, 1
+jmp transition23
 choseice2:
 mov ice,1
+jmp transition23
 
 
 transition23:
