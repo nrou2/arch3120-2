@@ -159,6 +159,25 @@ jmp turn1
 
 
 turn1:
+cmp priest, 1
+jl afterpriest
+mov eax, mmp
+mov ebx, mp
+sub eax, ebx
+mov eax, mmp
+sub eax, mp        
+mov ebx, 15
+mul ebx            
+mov ebx, mmp
+div ebx            
+add phealth, eax
+mov edx,OFFSET prompt48
+call WriteString	
+call WriteInt
+call Crlf
+
+
+afterpriest:
 mov defend, 0
 mov edx,OFFSET prompt1
 call WriteString
