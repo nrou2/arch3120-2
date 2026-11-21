@@ -26,6 +26,8 @@
 	priest dword 0
 	phantom dword 0
 	hexblade dword 0
+	absorb dword 0
+	absorbing dword 0
 
 
 	;move unlocks
@@ -48,6 +50,7 @@
 	prompt106 byte "6 - poison (40mp) ", 0
 	prompt107 byte "7 - healing (40mp) ", 0
 	prompt108 byte "8 - icicle shot (40mp, twice your magic + 10 damage) ", 0
+	prompt109 byte "9 - Absorption (once per fight, mage only)", 0
 	prompt2 BYTE "Your current health: ",0
 	prompt3 BYTE "Your current mana: ",0
 	prompt4 BYTE "Enemy current health: ",0
@@ -151,6 +154,7 @@
 	mov mhp, 100
 	mov bstrength, 5
 	mov bmagic, 11
+	mov absorb, 1
 	jmp turn1
 	dancer:
 	mov fullheal,1 
@@ -224,6 +228,9 @@
 	call WriteString
 	CALL CRLF
 	mov edx,OFFSET prompt108
+	call WriteString
+	CALL CRLF
+	mov edx,OFFSET prompt109
 	call WriteString
 	CALL CRLF
 	CALL CRLF
@@ -324,6 +331,8 @@
 	jz  healing
 	dec input
 	jz icespell
+	dec input
+	jz aborp
 
 	attack:
 	mov eax, green + (black * 16)
@@ -496,6 +505,15 @@
 	mul ebx
 	add phealth, eax
 	jmp enemy
+
+	aborp:
+	cmp absorb, 1
+	jne turn1
+	cmp class, 2
+	jne turn1
+
+	mov absorb, 0
+	mov absorbing, 1
 
 	poisoning:
 	;;Poison the enemy, but jump to the spell fail branch if it fails
