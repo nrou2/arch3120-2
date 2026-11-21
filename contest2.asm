@@ -67,7 +67,7 @@
 	prompt18 BYTE "Choose your class, Knight, Mage, Dancer (1,2,3)", 0
 	prompt19 BYTE "Enemy current magic: ", 0
 	prompt20 BYTE "Knight: 125 hp, 50 mana, 13 strength, 5 magic.  May parry on defend.", 0
-	prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend.", 0
+	prompt21 BYTE "Mage: 100 hp, 120 mana, 5 strength, 11 magic. Comes with shockspell, +15 mp on defend. Can absorb 1 attack per fight", 0
 	prompt22 BYTE "Dancer: 90 hp, 80 mana, 7 strength, 8 magic. Comes with strength buff,poison, full restore, may debuff on defend.", 0
 	prompt23 BYTE "You parried the attack, receiving half damage and reflecting more.", 0
 	prompt24 BYTE "You cursed your armor, weakening the enemy on touch.", 0
@@ -383,6 +383,7 @@
 	call SetTextColor
 	mov edx,OFFSET prompt47
 	call WriteString
+	CALL CRLF
 	mov eax, dhealth
 	shr eax, 3
 	mov ebx, eax
@@ -458,6 +459,7 @@
 	mov eax, green + (black * 16)
 	call SetTextColor
 	call WriteString
+	call Crlf
 	sub mp, 40
 	mov eax, magic
 	shl eax, 1
@@ -981,6 +983,7 @@
 	mov dstrength, 20
 	mov epoison, 0
 	mov ppoison, 0
+	call Clrscr
 	mov eax, white + (black * 16)
 	call SetTextColor
 	jmp turn1
