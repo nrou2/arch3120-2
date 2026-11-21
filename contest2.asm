@@ -649,9 +649,9 @@
 	enemy11:
 
 	cmp absorbing, 1
+	jne enemy12
 	mov eax, cyan + (black * 16)
 	call SetTextColor
-	jne enemy12
 	mov absorbing, 0
 	mov absorb, 0
 	mov edx,OFFSET prompt50
