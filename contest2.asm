@@ -647,10 +647,11 @@
 	mov absorb, 0
 	mov edx,OFFSET prompt50
 	call WriteString
-	mov eax dstrength
+	mov eax, dstrength
 	call WriteInt
-	add phealth, dstrength
-	add mp, dstrength
+	mov eax, dstrength
+	add phealth, eax
+	add mp, eax
 
 	jne enemy11
 
