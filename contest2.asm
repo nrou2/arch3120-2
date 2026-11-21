@@ -99,7 +99,7 @@
 	prompt47 Byte "The curse wrang an additional ", 0
 	prompt48 Byte "Your blessings healed you for", 0
 	prompt49 Byte "Your MP was restored  a bonus 10", 0
-
+	prompt50 Byte "You absorbed the enemy attack, restoring your HP and MP for", 0
 	.code
 	main PROC
 
@@ -514,6 +514,7 @@
 
 	mov absorb, 0
 	mov absorbing, 1
+	jmp enemy
 
 	poisoning:
 	;;Poison the enemy, but jump to the spell fail branch if it fails
@@ -640,6 +641,18 @@
 	sub dhealth, eax
 	cmp dhealth, 0
 	jle win
+	
+	cmp absorbing, 1
+	mov absorbing, 0
+	mov absorb, 0
+	mov edx,OFFSET prompt50
+	call WriteString
+	mov eax dstrength
+	call WriteInt
+	add phealth, dstrength
+	add mp, dstrength
+
+	jne enemy11
 
 	enemy11:
 	;;Set up attack values, but hold onto them incase they need to be adjusted due to defend
@@ -756,6 +769,7 @@
 
 	win:
 	;;Move to the correct transition between fights, or to the final victory screen
+	mov absorb, 1
 	mov choices, 2
 	add wave, 1
 	cmp wave, 2
