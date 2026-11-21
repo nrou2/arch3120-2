@@ -642,7 +642,16 @@
 	cmp dhealth, 0
 	jle win
 	
+
+
+	
+
+	enemy11:
+
 	cmp absorbing, 1
+	mov eax, cyan + (black * 16)
+	call SetTextColor
+	jne enemy12
 	mov absorbing, 0
 	mov absorb, 0
 	mov edx,OFFSET prompt50
@@ -652,10 +661,10 @@
 	mov eax, dstrength
 	add phealth, eax
 	add mp, eax
+	call Crlf
+	jmp turn1
 
-	jne enemy11
-
-	enemy11:
+	enemy12:
 	;;Set up attack values, but hold onto them incase they need to be adjusted due to defend
 	mov eax, red + (black * 16)
 	call SetTextColor
