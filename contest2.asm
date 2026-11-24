@@ -47,9 +47,9 @@
 	prompt103 BYTE "3 - Shockspell  (Inconsistent damage averaging on your magic, 20 mana)",0
 	prompt104 byte "4 - Strengthen Self (10mp)", 0
 	prompt105 BYTE "5 - Full restore (if owned)",0
-	prompt106 byte "6 - poison (40mp) ", 0
-	prompt107 byte "7 - healing (40mp) ", 0
-	prompt108 byte "8 - icicle shot (40mp, twice your magic + 10 damage) ", 0
+	prompt106 byte "6 - Poison (40mp) ", 0
+	prompt107 byte "7 - Healing (40mp) ", 0
+	prompt108 byte "8 - Icicle shot (40mp, twice your magic + 10 damage) ", 0
 	prompt109 byte "9 - Absorption (once per fight, mage only)", 0
 	prompt2 BYTE "Your current health: ",0
 	prompt3 BYTE "Your current mana: ",0
